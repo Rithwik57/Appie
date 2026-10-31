@@ -1,0 +1,13 @@
+import { DELIVERY_STATUSES } from '../domain/status';
+import { ALL_DOCTOR_DECISIONS, hasOpenTeleconsult, isRoutineBlocked, lastDecision } from '../domain/predicates';
+import type { Episode } from '../domain/types';
+export { ALL_DOCTOR_DECISIONS, hasOpenTeleconsult, isRoutineBlocked, lastDecision } from '../domain/predicates';
+const guidanceStatuses = ['care_guidance_final', 'awaiting_pharmacist_check', 'ready_for_checkout', ...DELIVERY_STATUSES];
+const prescriptionStatuses = ['awaiting_pharmacist_check', 'ready_for_checkout', ...DELIVERY_STATUSES];
+const teleconsultFrom = ['awaiting_doctor_review', 'in_doctor_review', 'more_info_requested', 'declined', 'care_guidance_final', 'escalated_urgent'];
+export const canShowFinalGuidance = (episode: Episode) => !isRoutineBlocked(episode) && guidanceStatuses.includes(episode.status) && ['approve_with_prescription', 'finalize_without_prescription'].includes(lastDecision(episode)?.type ?? '');
+export const canViewPrescription = (episode: Episode) => episode.prescription !== null && prescriptionStatuses.includes(episode.status) && !isRoutineBlocked(episode);
+export const canCheckout = (episode: Episode) => episode.status === 'ready_for_checkout' && !isRoutineBlocked(episode);
+export const canTrack = (episode: Episode) => episode.order !== null && episode.tracking !== null && !isRoutineBlocked(episode);
+export const canRequestTeleconsult = (episode: Episode) => teleconsultFrom.includes(episode.status) && !hasOpenTeleconsult(episode);
+export const allowedDoctorDecisions = (episode: Episode) => episode.status === 'in_doctor_review' && !isRoutineBlocked(episode) ? ALL_DOCTOR_DECISIONS : [];
