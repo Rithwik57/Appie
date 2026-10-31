@@ -1,0 +1,124 @@
+{
+  "users": {
+    "patient": {
+      "id": "pat-demo-01",
+      "displayName": "Aarav (demo)",
+      "ageBand": "25–34",
+      "address": {
+        "line1": "Flat 4B, Sample Residency, 12 Example Road",
+        "area": "Indiranagar",
+        "city": "Bengaluru",
+        "pin": "560000",
+        "isFictional": true
+      },
+      "roleDescription": "Start a health check, follow doctor and pharmacist decisions, complete simulated checkout and track the demo delivery."
+    },
+    "doctor": {
+      "id": "rev-doc-01",
+      "role": "doctor",
+      "displayName": "Dr. Meera Iyer (sample)",
+      "credentialLabel": "Sample doctor – demo credentials, not a real registration",
+      "isSample": true,
+      "roleDescription": "Review submitted health checks and record simulated care workflow decisions."
+    },
+    "pharmacist": {
+      "id": "rev-pha-01",
+      "role": "pharmacist",
+      "displayName": "Rohan Desai (sample)",
+      "credentialLabel": "Sample pharmacist – demo credentials, not a real registration",
+      "isSample": true,
+      "roleDescription": "Check doctor-approved simulated items and fulfillment details, or flag them back to the doctor."
+    },
+    "ops": {
+      "id": "ops-demo-01",
+      "role": "ops",
+      "displayName": "Kavya Rao (sample)",
+      "teamLabel": "Sample fulfillment desk – fictional",
+      "isSample": true,
+      "roleDescription": "Prepare paid demo orders and move them through simulated delivery statuses."
+    }
+  },
+  "scenarios": [
+    {
+      "episodeId": "ep-routine-01",
+      "kind": "routine",
+      "createdAt": "2025-01-15T08:45:00+05:30",
+      "intake": {
+        "concernArea": "cold_cough_throat",
+        "duration": "1_3_days",
+        "severity": "mild",
+        "warningSigns": "no",
+        "freeText": "Started after travelling; mostly a scratchy throat."
+      },
+      "assessment": { "category": "looks_routine", "simulatedConfidence": "high" }
+    },
+    {
+      "episodeId": "ep-urgent-01",
+      "kind": "urgent",
+      "createdAt": "2025-01-15T08:15:00+05:30",
+      "intake": {
+        "concernArea": "something_else",
+        "duration": "under_1_day",
+        "severity": "severe",
+        "warningSigns": "yes",
+        "freeText": "This sample episode is marked for urgent in-person attention."
+      },
+      "assessment": { "category": "possibly_urgent", "simulatedConfidence": "high" }
+    },
+    {
+      "episodeId": "ep-unclear-01",
+      "kind": "unclear",
+      "createdAt": "2025-01-15T08:30:00+05:30",
+      "intake": {
+        "concernArea": "aches_pains",
+        "duration": "over_1_week",
+        "severity": "moderate",
+        "warningSigns": "not_sure",
+        "freeText": "This sample episode needs more human input."
+      },
+      "assessment": { "category": "needs_human_input", "simulatedConfidence": "low" }
+    },
+    {
+      "episodeId": "ep-hist-01",
+      "kind": "historical",
+      "createdAt": "2024-12-25T09:00:00+05:30",
+      "intake": {
+        "concernArea": "skin_irritation",
+        "duration": "4_7_days",
+        "severity": "mild",
+        "warningSigns": "no",
+        "freeText": "Historical demonstration episode."
+      },
+      "assessment": { "category": "looks_routine", "simulatedConfidence": "high" }
+    }
+  ],
+  "services": {
+    "pharmacyPartner": "Sample Pharmacy Partner (demo)",
+    "deliveryPartner": "Sample Delivery Partner (demo)",
+    "orderLines": [
+      { "label": "Demo medication item A", "amountPaise": 18000 },
+      { "label": "Demo supportive care item B", "amountPaise": 12000 },
+      { "label": "Demo delivery fee", "amountPaise": 4000 },
+      { "label": "Waived in demo", "amountPaise": 0 }
+    ],
+    "totalPaise": 34000,
+    "deliveryEstimate": "Within 1 day (demo assumption)",
+    "historicalOrder": {
+      "paymentMethod": "upi",
+      "reviewedAt": "2024-12-25T09:00:00+05:30",
+      "deliveryEvents": [
+        { "status": "order_placed", "at": "2024-12-25T09:10:00+05:30" },
+        { "status": "preparing", "at": "2024-12-25T10:00:00+05:30" },
+        { "status": "dispatched", "at": "2024-12-25T12:00:00+05:30" },
+        { "status": "out_for_delivery", "at": "2024-12-25T14:00:00+05:30" },
+        { "status": "delivered", "at": "2024-12-25T16:00:00+05:30" }
+      ]
+    }
+  },
+  "catalog": {
+    "items": [
+      { "label": "Demo medication item A", "instructionsPlaceholder": "As directed in the reviewer-approved care plan (simulated)" },
+      { "label": "Demo supportive care item B", "instructionsPlaceholder": "As directed in the reviewer-approved care plan (simulated)" }
+    ]
+  }
+}
